@@ -1,4 +1,4 @@
-	`#0969DA` # ***C++ Containers*** 
+# ***C++ Containers*** 
 
 ### ***-> Array***
 ### ***-> Vector***
