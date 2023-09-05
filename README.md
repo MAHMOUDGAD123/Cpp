@@ -1,5 +1,5 @@
 # ***C++ Containers***
-> Data Structure
+> DS
 
 ### ***-> Array***
 ### ***-> Vector***
