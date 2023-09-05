@@ -1,8 +1,8 @@
 # ***C++ Containers***
 > DSA
 
-### ***-> Array***
-### ***-> Vector***
+### ***-> static-Array (Array)***
+### ***-> Dynamic-Array (Vector)***
 ### ***-> Stack***
 ### ***-> Queue***
 ### ***-> Deque***
