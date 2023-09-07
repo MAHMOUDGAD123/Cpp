@@ -1,6 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-//================================================= Searching alogorithms =================================================
+//============================================= Searching alogorithms ============================================
 
 // get the index of an element in array
 // if not found will return (UINT64_MAX)
@@ -8,7 +8,7 @@
 template <typename T, size_t n>
 static constexpr size_t linear_search(const T (&arr)[n], const T &_elem)
 {
-  for (size_t i(0); i < n; i++)
+  for (size_t i(0); i < n; ++i)
     if (_elem == arr[i])
       return i;
   return UINT64_MAX;
@@ -100,13 +100,13 @@ static constexpr size_t binary_search_des(const Ty (&arr)[n], const Ty &_elem, b
   return UINT64_MAX;
 }
 
-//=========================================================================================================================
+//=====================================================================================================================
 
 int main(int argc, char *argv[])
 {
   int arr[]{4, 7, 9, 12, 18, 21, 87, 625};
 
-  size_t RES = binary_search_rec(arr, 878);
+  size_t RES = binary_search_rec(arr, 87);
 
   if (RES != UINT64_MAX)
     std::cout << "Found At Index " << RES << std::endl;

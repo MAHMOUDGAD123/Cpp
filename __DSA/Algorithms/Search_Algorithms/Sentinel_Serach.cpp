@@ -1,10 +1,10 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-//================================================= Searching alogorithms =================================================
+//========================================= Searching alogorithms ===============================================
 
 // get the index of an element in array
 // if not found will return (UINT64_MAX)
-// sentinal linear search (ls)
+// sentinal linear search
 template <typename T, size_t n>
 static constexpr size_t sentinel_linear_search(T (&arr)[n], T &_elem)
 {
@@ -25,7 +25,7 @@ static constexpr size_t sentinel_linear_search(T (&arr)[n], T &_elem)
   return UINT64_MAX;
 }
 
-//=========================================================================================================================
+//===============================================================================================================
 
 int main(int argc, char *argv[])
 {
