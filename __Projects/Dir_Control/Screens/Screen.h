@@ -13,7 +13,36 @@
 class clsScreen
 {
 protected:
-	constexpr static uint8_t _width = 60;
+	constexpr const static uint8_t _width = 60;
+
+	static int _Read_pNum()
+	{
+		constexpr const std::array<const char *, 9> err_msg
+		{
+				"Please, Enter A Positive Number => ",
+				"(((Positive))) Number => ",
+				"Come On Man I Said (Positive) => ",
+				"OMG It's Not A Joke => ",
+				"Are You Stupid => ",
+				"**** You Man Enter The A ****in Positive Number => ",
+				"You Know What Go And **** Yourself => ",
+				"I Don't Care Any More => ",
+				"/\\/\\/\\/\\/\\/\\/\\/\\/\\| => "
+		};
+
+		int num(0), i(0);
+		while (!(std::cin >> num) || !(num > 0))
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << '\n' << DEFAULT_FORMAT << err_msg[i];
+
+			if (i < err_msg.size() - 1)
+				++i;
+		}
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return num;
+	}
 
 	static short _ReadUserChoice(short from, short to, const char *const msg = "Choose A Number Between")
 	{
@@ -34,7 +63,7 @@ protected:
 		std::cout
 				<< DEFAULT_FORMAT << "====================================================================\n"
 				<< DEFAULT_FORMAT << "=> Path: \"" << Dir::_Path << "\"\n"
-				<< DEFAULT_FORMAT << "=> " <<  Dir::_Count << " File(s)\n"
+				<< DEFAULT_FORMAT << "=> " << Dir::_Count << " File(s)\n"
 				<< DEFAULT_FORMAT << "====================================================================\n";
 	}
 

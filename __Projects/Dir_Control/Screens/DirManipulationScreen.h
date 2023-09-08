@@ -17,6 +17,7 @@
 #include "Dir_Manipulation/DirRemoveNAfterScreen.h"
 #include "Dir_Manipulation/DirInsertSubstringBefore.h"
 #include "Dir_Manipulation/DirInsertSubstringAfter.h"
+#include "Dir_Manipulation/DirAddItems.h"
 
 #define BACK_TO_MANIPULATION_MENU _GoBackToManipulationMenu()
 #define Jump_TO_MANIPULATION_MENU ShowManipulationMenu()
@@ -41,12 +42,13 @@ private:
     eInsert_Before = 13,
     eInsert_After = 14,
     eChange_Extension = 15,
+    eAdd_Items = 16,
     eBack_To_Main_Menu = 0
   };
 
   static en_ManipulationMenuOptions _ChooseFromManipulationMenu()
   {
-    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 15, "Choose What To Perform From Manipulation Menu");
+    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 16, "Choose What To Perform From Manipulation Menu");
   }
 
   static void _GoBackToManipulationMenu()
@@ -135,6 +137,11 @@ private:
     clsDirChangeExtensionsScreen::Display();
   }
 
+  static void _ShowDirAddItemsScreen()
+  {
+    clsDirAddItemsScreen::Display();
+  }
+
   /*====================================================================================================*/
 
   static void _PerformManipulationMenuOption(en_ManipulationMenuOptions UserChoice)
@@ -216,6 +223,11 @@ private:
       BACK_TO_MANIPULATION_MENU;
       return;
 
+    case en_ManipulationMenuOptions::eAdd_Items:
+      _ShowDirAddItemsScreen();
+      BACK_TO_MANIPULATION_MENU;
+      return;
+
     case en_ManipulationMenuOptions::eBack_To_Main_Menu:
       return;
     }
@@ -243,6 +255,7 @@ public:
         << DEFAULT_FORMAT << "\t\t\t[13]  Insert Substring Before.\n"
         << DEFAULT_FORMAT << "\t\t\t[14]  Insert Substring After.\n"
         << DEFAULT_FORMAT << "\t\t\t[15]  Change Files Extention.\n"
+        << DEFAULT_FORMAT << "\t\t\t[16]  Add Items (folder | file).\n"
         << DEFAULT_FORMAT << "\t\t\t[0]   Back To Main Menu.\n"
         << DEFAULT_FORMAT << "===================================================================="
         << std::endl;

@@ -1,7 +1,20 @@
-Web -- #01 -- Javascript_2023<||>file
-Web -- #02 -- Javascript_2023<||>file
-Web -- #03 -- Javascript_2023<||>file
-Web -- #04 -- Javascript_2023<||>file
-Web -- #05 -- Javascript_2023<||>file
-Web -- #06 -- Javascript_2023<||>file
-Web -- #07 -- Javascript_2023<||>file
+File___#01<||>txt
+File___#02<||>txt
+File___#03<||>txt
+File___#04<||>txt
+File___#05<||>txt
+File___#06<||>txt
+File___#07<||>txt
+File___#08<||>txt
+File___#09<||>txt
+File___#10<||>txt
+MG_Folder___#01<||>file
+MG_Folder___#02<||>file
+MG_Folder___#03<||>file
+MG_Folder___#04<||>file
+MG_Folder___#05<||>file
+MG_Folder___#06<||>file
+MG_Folder___#07<||>file
+MG_Folder___#08<||>file
+MG_Folder___#09<||>file
+MG_Folder___#10<||>file

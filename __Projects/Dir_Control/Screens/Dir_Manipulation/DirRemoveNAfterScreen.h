@@ -19,7 +19,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT << "Enter How Many Characters To Remove => ";
 
-    size_t N(MG::utility::input_valid::Read_pNum<size_t>());
+    int N(_Read_pNum());
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT << "-> Hint: To Target Folders Enter { / }";

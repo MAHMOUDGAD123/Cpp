@@ -1,6 +1,7 @@
 #pragma once
 
 #include <dirent.h>
+#include <windows.h>
 #include "File.h"
 #include "MG_Util.h"
 
@@ -337,6 +338,43 @@ struct Dir
                (_Path + file._Name + '.' + new_ext).c_str());
     }
     closedir(dir);
+  }
+
+  static void add_n_folders(int n, const std::string &f_name)
+  {
+    int digits_count((int)log10f(n));
+    std::string command;
+
+    while (n)
+    {
+      command = "md \"" + _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n);
+      std::system(command.c_str());
+      --n;
+    }
+  }
+
+  static void add_n_files(const std::string &type, int n, const std::string &f_name)
+  {
+    int digits_count((int)log10f(n));
+    std::string command;
+
+    while (n)
+    {
+      command = "type nul >> \"" + _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + type + '\"';
+      std::system(command.c_str());
+      --n;
+    }
+  }
+
+  static void add_n_items(const std::string &type, int n, const std::string &item_name)
+  {
+    if (!n)
+      return;
+
+    if (type[0] == '/')
+      add_n_folders(n, item_name.empty() ? "Folder" : item_name);
+    else
+      add_n_files(type, n, item_name.empty() ? "File" : item_name);
   }
 
   static void trim_names()
