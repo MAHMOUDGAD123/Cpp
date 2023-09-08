@@ -1,6 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-/*==============================================Bubble Sort==========================================*/
+/*=========================================Bubble Sort=====================================*/
 
 auto Ascending = []<typename _Ty>(const _Ty &lhs, const _Ty &rhs) -> bool
 { return lhs > rhs; };
@@ -40,19 +40,21 @@ static constexpr int bubble_sort(Ty (&_arr)[_Size], bool _Ascending_Order = true
     return _Sort(_arr, Descending);
 }
 
-/*======================================================================================================*/
+/*============================================================================================*/
 
 template <typename container>
 void _Print(const container &_Con)
 {
-  std::cout << " - ";
-  for (const auto elem : _Con)
-    std::cout << elem << " - ";
+  std::cout << '\n';
 
-  std::cout << std::endl;
+  for (const auto elem : _Con)
+    std::cout << " -> " << elem;
+
+  std::cout << '\n'
+            << std::endl;
 }
 
-/*======================================================================================================*/
+/*============================================================================================*/
 // main function
 
 int main(int argc, char *argv[])
@@ -62,7 +64,7 @@ int main(int argc, char *argv[])
 
   _Print(arr);
 
-  std::cout << "\n-> Iterations = " << bubble_sort(arr, false) << "\n\n";
+  std::cout << "-> Iterations = " << bubble_sort(arr, false) << '\n';
 
   _Print(arr);
 

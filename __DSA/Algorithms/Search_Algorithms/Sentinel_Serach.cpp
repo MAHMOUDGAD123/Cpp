@@ -1,6 +1,6 @@
 #include <iostream>
 
-//========================================= Searching alogorithms ===============================================
+//===================================== Searching alogorithms =======================================
 
 // get the index of an element in array
 // if not found will return (UINT64_MAX)
@@ -25,7 +25,7 @@ static constexpr size_t sentinel_linear_search(T (&arr)[n], T &_elem)
   return UINT64_MAX;
 }
 
-//===============================================================================================================
+//===================================================================================================
 
 int main(int argc, char *argv[])
 {
@@ -42,6 +42,8 @@ int main(int argc, char *argv[])
     std::cout << "Found At Index " << RES << std::endl;
   else
     std::cout << "Not Found :-(" << std::endl;
+
+  std::cout << std::endl;
 
   return 0;
 }

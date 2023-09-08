@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 /*==============================================Selection Sort==========================================*/
 
@@ -51,11 +51,13 @@ static constexpr void selection_sort(Ty (&_arr)[_Size], bool _Ascending_Order = 
 template <typename container>
 void _Print(const container &_Con)
 {
-  std::cout << " - ";
-  for (const auto elem : _Con)
-    std::cout << elem << " - ";
-
   std::cout << std::endl;
+            
+  for (const auto &elem : _Con)
+    std::cout << " -> " << elem;
+
+  std::cout << '\n'
+            << std::endl;
 }
 
 /*======================================================================================================*/

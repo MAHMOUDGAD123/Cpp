@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 //================================================= Searching alogorithms =================================================
 
@@ -26,7 +26,7 @@ template <typename T, size_t n>
 size_t exponential_search(const T (&arr)[n], const T &_elem)
 {
   if (!n)
-    return UINT64_MAX;
+    return INT64_MAX;
 
   if (arr[0] == _elem)
     return 0;
@@ -34,9 +34,9 @@ size_t exponential_search(const T (&arr)[n], const T &_elem)
   size_t i(1);
 
   while (i < n && arr[i] <= _elem)
-    i <<= 2; // i *= 2;
+    i <<= 1; // i *= 2;
 
-  return binary_search(arr, _elem, i >> 1, std::min(i, n - 1));
+  return binary_search(arr, _elem, i >> 1, (i < n - 1 ? i : n - 1));
 }
 
 //=========================================================================================================================
@@ -45,12 +45,14 @@ int main(int argc, char *argv[])
 {
   int arr[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
-  size_t R(exponential_search(arr, 1));
+  size_t R(exponential_search(arr, 7));
 
   if (R != UINT64_MAX)
     std::cout << "Found At Index = " << R << std::endl;
   else
     std::cout << "Not Found :-(" << std::endl;
+
+  std::cout << std::endl;
 
   return 0;
 }

@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 /*==============================================Insertion Sort==========================================*/
 
@@ -35,9 +35,11 @@ static constexpr void insertion_sort(Ty (&_arr)[_Size], bool _Ascending_Order = 
 template <typename container>
 void _Print(const container &_Con)
 {
-  std::cout << " - ";
+  std::cout << '\n'
+            << std::endl;
+
   for (const auto elem : _Con)
-    std::cout << elem << " - ";
+    std::cout << " -> " << elem;
 
   std::cout << std::endl;
 }
