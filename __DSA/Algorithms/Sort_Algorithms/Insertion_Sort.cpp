@@ -1,6 +1,6 @@
 #include <iostream>
 
-/*==============================================Insertion Sort==========================================*/
+/*=========================================Insertion Sort=====================================*/
 
 auto Ascending = []<typename _Ty>(const _Ty &lhs, const _Ty &rhs) -> bool
 { return lhs > rhs; };
@@ -30,7 +30,7 @@ static constexpr void insertion_sort(Ty (&_arr)[_Size], bool _Ascending_Order = 
     _Sort(_arr, Descending);
 }
 
-/*======================================================================================================*/
+/*============================================================================================*/
 
 template <typename container>
 void _Print(const container &_Con)
@@ -44,7 +44,7 @@ void _Print(const container &_Con)
   std::cout << std::endl;
 }
 
-/*======================================================================================================*/
+/*============================================================================================*/
 // main function
 
 int main(int argc, char *argv[])
