@@ -27,12 +27,12 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    bool Hint(CONFIRM("Do You Want To Search Names For The End?y/n? "));
+    bool Hint(CONFIRM("Do You Want To Search Names From The End? y/n? "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
               
-    if (CONFIRM("Are You Sure That You Want To Perform This Process?y/n? "))
+    if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       if (Hint)
         Dir::remove_substring_r(Target, ext);

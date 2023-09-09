@@ -27,7 +27,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    if (CONFIRM("Are You Sure That You Want To Perform This Process?y/n? "))
+    if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       Dir::change_extensions(old_ext, new_ext);
 

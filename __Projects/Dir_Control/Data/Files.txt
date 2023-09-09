@@ -1,20 +1,26 @@
-File___#01<||>txt
-File___#02<||>txt
-File___#03<||>txt
-File___#04<||>txt
-File___#05<||>txt
-File___#06<||>txt
-File___#07<||>txt
-File___#08<||>txt
-File___#09<||>txt
-File___#10<||>txt
-MG_Folder___#01<||>file
-MG_Folder___#02<||>file
-MG_Folder___#03<||>file
-MG_Folder___#04<||>file
-MG_Folder___#05<||>file
-MG_Folder___#06<||>file
-MG_Folder___#07<||>file
-MG_Folder___#08<||>file
-MG_Folder___#09<||>file
-MG_Folder___#10<||>file
+Learn JavaScript OOP in Arabic _01 - Introduction And What_s OOP<||>mp4
+Learn JavaScript OOP in Arabic _02 - Playing With Window Object<||>mp4
+Learn JavaScript OOP in Arabic _03 - Defining Object With Object Literals Part 1<||>mp4
+Learn JavaScript OOP in Arabic _04 - Defining Object With Object Literals Part 2<||>mp4
+Learn JavaScript OOP in Arabic _05 - Dot Notation vs Bracket Notation<||>mp4
+Learn JavaScript OOP in Arabic _06 - Defining Object With New Keyword<||>mp4
+Learn JavaScript OOP in Arabic _07 - Defining Object With Object.create<||>mp4
+Learn JavaScript OOP in Arabic _08 - Defining Object With Object.assign<||>mp4
+Learn JavaScript OOP in Arabic _09 - Delete Operator<||>mp4
+Learn JavaScript OOP in Arabic _10 - For In Loop With Object Properties<||>mp4
+Learn JavaScript OOP in Arabic _11 - Constructor Function Introduction<||>mp4
+Learn JavaScript OOP in Arabic _12 - Constructor Function Advanced And New Keyword<||>mp4
+Learn JavaScript OOP in Arabic _13 - Constructor Function Dealing With Properties<||>mp4
+Learn JavaScript OOP in Arabic _14 - Constructor Function Training_s<||>mp4
+Learn JavaScript OOP in Arabic _15 - Constructor Function Built In Constructors<||>mp4
+Learn JavaScript OOP in Arabic _16 - Prototype Part 1 Intro<||>mp4
+Learn JavaScript OOP in Arabic _17 - Prototype Part 2 Add To Prototype Chain<||>mp4
+Learn JavaScript OOP in Arabic _18 - Prototype Part 3 Extend Constructors Features<||>mp4
+Learn JavaScript OOP in Arabic _19 - Prototype Part 4 Prototype Chain<||>mp4
+Learn JavaScript OOP in Arabic _20 - Class Syntax And Introduction<||>mp4
+Learn JavaScript OOP in Arabic _21 - Class Static Properties And Methods<||>mp4
+Learn JavaScript OOP in Arabic _22 - Class Inheritance<||>mp4
+Learn JavaScript OOP in Arabic _23 - JavaScript Accessors Getters _ Setters<||>mp4
+Learn JavaScript OOP in Arabic _24 - Object Meta Data And Descriptor<||>mp4
+Learn JavaScript OOP in Arabic _25 - Object Define Properties And Training_s<||>mp4
+Learn JavaScript OOP in Arabic _26 - Important Info And The End<||>mp4

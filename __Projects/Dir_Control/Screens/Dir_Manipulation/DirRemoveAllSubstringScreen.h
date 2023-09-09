@@ -27,7 +27,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    if (CONFIRM("Are You Sure That You Want To Perform This Process?y/n? "))
+    if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       Dir::remove_all_substring(Target, ext);
 
