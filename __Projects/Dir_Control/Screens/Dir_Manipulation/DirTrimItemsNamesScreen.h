@@ -3,7 +3,7 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirTrimFilesNamesScreen : private clsScreen
+class clsDirTrimItemsNamesScreen : private clsScreen
 {
 public:
   static void Display()

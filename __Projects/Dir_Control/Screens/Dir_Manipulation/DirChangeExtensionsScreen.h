@@ -14,12 +14,12 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string old_ext(READ_TXT("Enter The Targeted File extention => "));
+    std::string old_ext(READ_TXT("Enter The Targeted File Extension => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string new_ext(READ_TXT("Enter The New Extention => "));
+    std::string new_ext(READ_TXT("Enter The New Extension => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;

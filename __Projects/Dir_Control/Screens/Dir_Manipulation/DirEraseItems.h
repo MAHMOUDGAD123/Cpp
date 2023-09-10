@@ -3,12 +3,12 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirRemoveItemsScreen : private clsScreen
+class clsDirEraseItemsScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\tRemove Items");
+    _DrawScreenHeader("\tErase Items");
     _PrintPathTag();
 
     std::cout << "\n\n"
@@ -16,7 +16,7 @@ public:
               << "Enter The Items In The Following Format:"
               << "\n\n"
               << DEFAULT_FORMAT
-              << "=>  item1.txt///item2.mp4///item3.mp3///.... "
+              << "=> file.txt///folder///file.mp3///... "
               << "\n\n"
               << DEFAULT_FORMAT;
 
@@ -33,7 +33,7 @@ public:
     {
       std::cout << "\n\n";
 
-      Dir::remove_items(Format);
+      Dir::erase_items(Format);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully" << std::endl;

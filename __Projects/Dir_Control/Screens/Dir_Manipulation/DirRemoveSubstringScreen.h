@@ -22,7 +22,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string ext(READ_TXT("Enter The File extention => "));
+    std::string ext(READ_TXT("Enter The item extention => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;

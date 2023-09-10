@@ -99,6 +99,7 @@ public:
   {
     _DrawScreenHeader("\tDir Manager");
 
+    std::cout << DEFAULT_FORMAT << "ex: D:\\folder1\\folder2\\...\n\n";
     std::cout << DEFAULT_FORMAT << "Enter The Path Here ==> ";
     Dir::_Path = READ_TXT("");
 

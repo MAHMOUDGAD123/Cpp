@@ -42,7 +42,7 @@ public:
     std::vector<File> Files = File::_LoadFilesFromFile();
     uint32_t _TotalFiles = (uint32_t)Files.size();
 
-    _DrawScreenHeader("   Files Info List");
+    _DrawScreenHeader("  Files Info List");
     _PrintPathTag();
 
     _ShowFilesListHeader(_TotalFiles);

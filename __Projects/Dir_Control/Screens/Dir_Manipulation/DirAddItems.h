@@ -17,7 +17,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string Type(READ_TXT("Enter The Item Type => "));
+    std::string ext(READ_TXT("Enter The Item Extension => "));
 
     std::cout << "\n"
               << DEFAULT_FORMAT;
@@ -46,7 +46,7 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
-      Dir::add_n_items(Type, N, Name);
+      Dir::add_n_items(ext, N, Name);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully";

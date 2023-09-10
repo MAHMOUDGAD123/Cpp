@@ -45,7 +45,7 @@ struct Dir
 
         if (!file.empty() && file._Name[0] != '.')
         {
-          stream << file._Name + File::_sep + (file._Type.empty() ? "file" : file._Type) << std::endl;
+          stream << file._Name + File::_sep + (file._Type.empty() ? "folder" : file._Type) << std::endl;
           ++_Count;
         }
       }
@@ -384,14 +384,14 @@ struct Dir
     }
   }
 
-  static void add_n_files(const std::string &type, int n, const std::string &f_name)
+  static void add_n_files(const std::string &Extension, int n, const std::string &f_name)
   {
     int digits_count((int)log10f(n));
     std::string file;
 
     while (n)
     {
-      file = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + type;
+      file = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + Extension;
       std::ofstream os;
       os.open(file);
       os.close();
@@ -399,18 +399,26 @@ struct Dir
     }
   }
 
-  static void add_n_items(const std::string &type, int n, const std::string &item_name)
+  static void add_n_items(const std::string &Extension, int n, const std::string &item_name)
   {
     if (!n)
       return;
 
-    if (type[0] == '/')
+    if (Extension[0] == '/')
       add_n_folders(n, item_name.empty() ? "Folder" : item_name);
     else
-      add_n_files(type, n, item_name.empty() ? "File" : item_name);
+      add_n_files(Extension, n, item_name.empty() ? "File" : item_name);
   }
 
-  static void remove_items(const std::string &format)
+  static void erase_items(const std::string &format)
+  {
+    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+
+    for (const std::string &item : targets)
+      std::filesystem::remove_all(_Path + item);
+  }
+
+  static void smart_files_erase(const std::string &format)
   {
     std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
 
@@ -418,7 +426,7 @@ struct Dir
       system(("DEL /Q \"" + _Path + item + '\"').c_str());
   }
 
-  static void remove_items_rec(const std::string &format)
+  static void smart_files_erase_rec(const std::string &format)
   {
     std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
 

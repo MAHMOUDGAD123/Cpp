@@ -3,14 +3,14 @@
 #include "Screen.h"
 #include "../Headers/Dir.h"
 #include "Dir_Manipulation/DirRemoveSubstringScreen.h"
-#include "Dir_Manipulation/DirRenameFilesLCScreen.h"
-#include "Dir_Manipulation/DirRenameFilesRCScreen.h"
-#include "Dir_Manipulation/DirRenameFilesMCScreen.h"
+#include "Dir_Manipulation/DirRenameItemsLCScreen.h"
+#include "Dir_Manipulation/DirRenameItemsRCScreen.h"
+#include "Dir_Manipulation/DirRenameItemsMCScreen.h"
 #include "Dir_Manipulation/DirReplaceSubstringScreen.h"
-#include "Dir_Manipulation/DirReplaceAllSubstringScreen.h"
+#include "Dir_Manipulation/DirSmartReplaceSubstringScreen.h"
 #include "Dir_Manipulation/DirChangeExtensionsScreen.h"
-#include "Dir_Manipulation/DirRemoveAllSubstringScreen.h"
-#include "Dir_Manipulation/DirTrimFilesNamesScreen.h"
+#include "Dir_Manipulation/DirSmartRemoveSubstringScreen.h"
+#include "Dir_Manipulation/DirTrimItemsNamesScreen.h"
 #include "Dir_Manipulation/DirAppendLeftScreen.h"
 #include "Dir_Manipulation/DirAppendRightScreen.h"
 #include "Dir_Manipulation/DirRemoveNBeforeScreen.h"
@@ -18,8 +18,9 @@
 #include "Dir_Manipulation/DirInsertSubstringBefore.h"
 #include "Dir_Manipulation/DirInsertSubstringAfter.h"
 #include "Dir_Manipulation/DirAddItems.h"
-#include "Dir_Manipulation/DirRemoveItems.h"
-#include "Dir_Manipulation/DirRemoveItemsRec.h"
+#include "Dir_Manipulation/DirEraseItems.h"
+#include "Dir_Manipulation/DirSmartEraseFiles.h"
+#include "Dir_Manipulation/DirSmartEraseFilesRec.h"
 
 #define BACK_TO_MANIPULATION_MENU _GoBackToManipulationMenu()
 #define Jump_TO_MANIPULATION_MENU ShowManipulationMenu()
@@ -30,11 +31,11 @@ private:
   enum class en_ManipulationMenuOptions
   {
     eRemove_Substring = 1,
-    eRemove_All_Substring = 2,
+    eSm_Remove_Substring = 2,
     eRemove_n_Before = 3,
     eRemove_n_After = 4,
     eReplace_Substring = 5,
-    eReplace_All_Substring = 6,
+    eSm_Replace_Substring = 6,
     eRename_Files_LC = 7,
     eRename_Files_RC = 8,
     eRename_Files_MC = 9,
@@ -45,14 +46,15 @@ private:
     eInsert_After = 14,
     eChange_Extension = 15,
     eAdd_Items = 16,
-    eRemove_Items = 17,
-    eRemove_Items_Rec = 18,
+    eErase_Items = 17,
+    eSm_Erase_Files = 18,
+    eSm_Erase_Files_Rec = 19,
     eBack_To_Main_Menu = 0
   };
 
   static en_ManipulationMenuOptions _ChooseFromManipulationMenu()
   {
-    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 18, "Choose What To Perform From Manipulation Menu");
+    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 19, "Choose What To Perform From Manipulation Menu");
   }
 
   static void _GoBackToManipulationMenu()
@@ -71,9 +73,9 @@ private:
     clsDirRemoveSubstringScreen::Display();
   }
 
-  static void _ShowDirRemoveAllSubstringScreen()
+  static void _ShowDirSmartRemoveSubstringScreen()
   {
-    clsDirRemoveAllSubstringScreen::Display();
+    clsDirSmartRemoveSubstringScreen::Display();
   }
 
   static void _ShowDirRemoveNBeforeScreen()
@@ -91,29 +93,29 @@ private:
     clsDirReplaceSubstringScreen::Display();
   }
 
-  static void _ShowDirReplaceAllSubstringScreen()
+  static void _ShowDirSmartReplaceSubstringScreen()
   {
-    clsDirReplaceAllSubstringScreen::Display();
+    clsDirSmartReplaceSubstringScreen::Display();
   }
 
   static void _ShowDirRenameFilesLCScreen()
   {
-    clsDirRenameFilesLCScreen::Display();
+    clsDirRenameItemsLCScreen::Display();
   }
 
   static void _ShowDirRenameFilesRCScreen()
   {
-    clsDirRenameFilesRCScreen::Display();
+    clsDirRenameItemsRCScreen::Display();
   }
 
   static void _ShowDirRenameFilesMCScreen()
   {
-    clsDirRenameFilesMCScreen::Display();
+    clsDirRenameItemsMCScreen::Display();
   }
 
   static void _ShowDirTrimFilesNamesScreen()
   {
-    clsDirTrimFilesNamesScreen::Display();
+    clsDirTrimItemsNamesScreen::Display();
   }
 
   static void _ShowDirApprendLeftScreen()
@@ -146,14 +148,19 @@ private:
     clsDirAddItemsScreen::Display();
   }
 
-  static void _ShowDirRemoveItemsScreen()
+  static void _ShowDirEraseItemsScreen()
   {
-    clsDirRemoveItemsScreen::Display();
+    clsDirEraseItemsScreen::Display();
   }
-  
-  static void _ShowDirRemoveItemsRecScreen()
+
+  static void _ShowDirSmartEraseFilesScreen()
   {
-    clsDirRemoveItemsRecScreen::Display();
+    clsDirSmartEraseFilesScreen::Display();
+  }
+
+  static void _ShowDirSmartEraseFilesRecScreen()
+  {
+    clsDirSmartEraseFilesRecScreen::Display();
   }
 
   /*====================================================================================================*/
@@ -167,8 +174,8 @@ private:
       BACK_TO_MANIPULATION_MENU;
       return;
 
-    case en_ManipulationMenuOptions::eRemove_All_Substring:
-      _ShowDirRemoveAllSubstringScreen();
+    case en_ManipulationMenuOptions::eSm_Remove_Substring:
+      _ShowDirSmartRemoveSubstringScreen();
       BACK_TO_MANIPULATION_MENU;
       return;
 
@@ -187,8 +194,8 @@ private:
       BACK_TO_MANIPULATION_MENU;
       return;
 
-    case en_ManipulationMenuOptions::eReplace_All_Substring:
-      _ShowDirReplaceAllSubstringScreen();
+    case en_ManipulationMenuOptions::eSm_Replace_Substring:
+      _ShowDirSmartReplaceSubstringScreen();
       BACK_TO_MANIPULATION_MENU;
       return;
 
@@ -242,13 +249,18 @@ private:
       BACK_TO_MANIPULATION_MENU;
       return;
 
-    case en_ManipulationMenuOptions::eRemove_Items:
-      _ShowDirRemoveItemsScreen();
+    case en_ManipulationMenuOptions::eErase_Items:
+      _ShowDirEraseItemsScreen();
       BACK_TO_MANIPULATION_MENU;
       return;
 
-    case en_ManipulationMenuOptions::eRemove_Items_Rec:
-      _ShowDirRemoveItemsRecScreen();
+    case en_ManipulationMenuOptions::eSm_Erase_Files:
+      _ShowDirSmartEraseFilesScreen();
+      BACK_TO_MANIPULATION_MENU;
+      return;
+
+    case en_ManipulationMenuOptions::eSm_Erase_Files_Rec:
+      _ShowDirSmartEraseFilesRecScreen();
       BACK_TO_MANIPULATION_MENU;
       return;
 
@@ -264,25 +276,26 @@ public:
     _PrintPathTag();
 
     std::cout
-        << DEFAULT_FORMAT << "\t\t\t[1]   Remove Substring.\n"
-        << DEFAULT_FORMAT << "\t\t\t[2]   Remove All Substring.\n"
-        << DEFAULT_FORMAT << "\t\t\t[3]   Remove N Before.\n"
-        << DEFAULT_FORMAT << "\t\t\t[4]   Remove N After.\n"
-        << DEFAULT_FORMAT << "\t\t\t[5]   Replace Substring.\n"
-        << DEFAULT_FORMAT << "\t\t\t[6]   Replace All Substring.\n"
-        << DEFAULT_FORMAT << "\t\t\t[7]   Rename All (Left Counter).\n"
-        << DEFAULT_FORMAT << "\t\t\t[8]   Rename All (Right Counter).\n"
-        << DEFAULT_FORMAT << "\t\t\t[9]   Rename All (Mid Counter).\n"
-        << DEFAULT_FORMAT << "\t\t\t[10]  Trim All Names.\n"
-        << DEFAULT_FORMAT << "\t\t\t[11]  Names Append Left.\n"
-        << DEFAULT_FORMAT << "\t\t\t[12]  Names Append Right.\n"
-        << DEFAULT_FORMAT << "\t\t\t[13]  Insert Substring Before.\n"
-        << DEFAULT_FORMAT << "\t\t\t[14]  Insert Substring After.\n"
-        << DEFAULT_FORMAT << "\t\t\t[15]  Change Files Extention.\n"
-        << DEFAULT_FORMAT << "\t\t\t[16]  Add Items (folder | file).\n"
-        << DEFAULT_FORMAT << "\t\t\t[17]  Remove Items (folder | file).\n"
-        << DEFAULT_FORMAT << "\t\t\t[18]  Remove Items Rec (folder | file).\n"
-        << DEFAULT_FORMAT << "\t\t\t[0]   Back To Main Menu.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[1]   Remove Substring.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[2]   Smart Remove Substring.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[3]   Remove N Before.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[4]   Remove N After.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[5]   Replace Substring.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[6]   Smart Replace Substring.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[7]   Rename All (Left Counter).\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[8]   Rename All (Right Counter).\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[9]   Rename All (Mid Counter).\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[10]  Trim All Names.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[11]  Names Append Left.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[12]  Names Append Right.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[13]  Insert Substring Before.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[14]  Insert Substring After.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[15]  Change Files Extention.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[16]  Add Items (folder | file).\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[17]  Erase Items (folder | file).\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[18]  Smart Erase Files.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[19]  Smart Erase Files Rec.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[0]   Back To Main Menu.\n"
         << DEFAULT_FORMAT << "===================================================================="
         << std::endl;
 

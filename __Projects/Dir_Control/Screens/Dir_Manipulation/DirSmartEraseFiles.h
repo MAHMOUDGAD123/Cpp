@@ -3,22 +3,20 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirRemoveItemsRecScreen : private clsScreen
+class clsDirSmartEraseFilesScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\t\b\bRemove Items Recursive");
+    _DrawScreenHeader("Smart Erase Files");
     _PrintPathTag();
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT
-              << "!! This Feature Will Remove Files Recursively !!\n\n"
-              << DEFAULT_FORMAT
               << "Enter The Items In The Following Format:"
               << "\n\n"
               << DEFAULT_FORMAT
-              << "=>  item1.txt///item2.mp4///item3.mp3///.... "
+              << "=>  file.txt///file.mp4///file.mp3///... "
               << "\n\n"
               << DEFAULT_FORMAT;
 
@@ -35,7 +33,7 @@ public:
     {
       std::cout << "\n\n";
 
-      Dir::remove_items_rec(Format);
+      Dir::smart_files_erase(Format);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully" << std::endl;

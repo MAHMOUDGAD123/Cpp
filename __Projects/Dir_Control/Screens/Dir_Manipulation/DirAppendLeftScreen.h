@@ -22,7 +22,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string ext(READ_TXT("Enter The File extention => "));
+    std::string ext(READ_TXT("Enter The item Extension => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
@@ -30,7 +30,7 @@ public:
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       std::cout << "\n\n";
-      
+
       Dir::append_left(insert, ext);
 
       std::cout << "\n\n"

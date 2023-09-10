@@ -3,12 +3,12 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirRemoveAllSubstringScreen : private clsScreen
+class clsDirSmartRemoveSubstringScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\tRemove All Substring");
+    _DrawScreenHeader("Smart Remove Substring");
     _PrintPathTag();
 
     std::cout << "\n\n"
@@ -22,7 +22,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string ext(READ_TXT("Enter The File extention => "));
+    std::string ext(READ_TXT("Enter The item extention => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
@@ -30,7 +30,7 @@ public:
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       std::cout << "\n\n";
-      
+
       Dir::remove_all_substring(Target, ext);
 
       std::cout << "\n\n"

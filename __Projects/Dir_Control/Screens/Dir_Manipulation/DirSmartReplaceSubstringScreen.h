@@ -3,12 +3,12 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirReplaceAllSubstringScreen : private clsScreen
+class clsDirSmartReplaceSubstringScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\tReplace All Substring");
+    _DrawScreenHeader("Smart Replace Substring");
     _PrintPathTag();
 
     std::cout << "\n\n"
@@ -27,7 +27,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string ext(READ_TXT("Enter The File extention => "));
+    std::string ext(READ_TXT("Enter The item extention => "));
 
 
     std::cout << "\n\n"

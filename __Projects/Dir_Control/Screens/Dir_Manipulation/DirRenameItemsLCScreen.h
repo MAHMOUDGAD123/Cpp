@@ -3,23 +3,18 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirRenameFilesMCScreen : private clsScreen
+class clsDirRenameItemsLCScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\t Rename Files MC");
+    _DrawScreenHeader("\tRename Items LC");
     _PrintPathTag();
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string lhs(READ_TXT("Enter The LHS text => "));
-
-    std::cout << "\n\n"
-              << DEFAULT_FORMAT;
-
-    std::string rhs(READ_TXT("Enter The RHS text => "));
+    std::string NewName(READ_TXT("Enter The items New Name => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT << "-> Hint: To Target Folders Enter { / }";
@@ -27,7 +22,7 @@ public:
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
-    std::string ext(READ_TXT("Enter The File Extention => "));
+    std::string ext(READ_TXT("Enter The Item Extention => "));
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
@@ -36,7 +31,7 @@ public:
     {
       std::cout << "\n\n";
       
-      Dir::rename_items_mid_counter(lhs, rhs, ext);
+      Dir::rename_items_left_counter(NewName, ext);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully";
