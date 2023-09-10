@@ -72,11 +72,11 @@ struct Dir
     {
       file = File::GetFullInfo(info->d_name);
 
-      // if (file._Type == ext)
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -89,6 +89,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -98,8 +100,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.rfind(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -112,6 +115,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -120,8 +125,9 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        rename((_Path + info->d_name).c_str(),
-               (_Path + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -135,6 +141,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -144,8 +152,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -159,6 +168,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -168,8 +179,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -183,6 +195,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -192,8 +206,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -206,6 +221,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -215,8 +232,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.rfind(target)) != std::string::npos)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -229,6 +247,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -237,13 +257,14 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        rename((_Path + info->d_name).c_str(),
-               (_Path + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
 
-  static void rename_files_left_counter(const std::string &new_name, const std::string &ext)
+  static void rename_items_left_counter(const std::string &new_name, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -252,6 +273,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -262,14 +285,15 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        rename((_Path + info->d_name).c_str(),
-               (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type + "\"").c_str());
+        // rename((_Path + info->d_name).c_str(),
+        //  (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
       }
     }
     closedir(dir);
   }
 
-  static void rename_files_right_counter(const std::string &new_name, const std::string &ext)
+  static void rename_items_right_counter(const std::string &new_name, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -278,6 +302,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -288,14 +314,15 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        rename((_Path + info->d_name).c_str(),
-               (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + file._Type + "\"").c_str());
+        // rename((_Path + info->d_name).c_str(),
+        //  (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
       }
     }
     closedir(dir);
   }
 
-  static void rename_files_mid_counter(const std::string &lhs, const std::string &rhs, const std::string &ext)
+  static void rename_items_mid_counter(const std::string &lhs, const std::string &rhs, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -304,6 +331,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -314,8 +343,9 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        rename((_Path + info->d_name).c_str(),
-               (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + '.' + file._Type + "\"").c_str());
+        // rename((_Path + info->d_name).c_str(),
+        //  (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
       }
     }
     closedir(dir);
@@ -334,8 +364,9 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (file._Type == old_ext)
-        rename((_Path + info->d_name).c_str(),
-               (_Path + file._Name + '.' + new_ext).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + '.' + new_ext + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name + '.' + new_ext).c_str());
     }
     closedir(dir);
   }
@@ -343,12 +374,12 @@ struct Dir
   static void add_n_folders(int n, const std::string &f_name)
   {
     int digits_count((int)log10f(n));
-    std::string command;
+    std::string folder;
 
     while (n)
     {
-      command = "md \"" + _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n);
-      std::system(command.c_str());
+      folder = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n);
+      std::filesystem::create_directory(folder);
       --n;
     }
   }
@@ -356,12 +387,14 @@ struct Dir
   static void add_n_files(const std::string &type, int n, const std::string &f_name)
   {
     int digits_count((int)log10f(n));
-    std::string command;
+    std::string file;
 
     while (n)
     {
-      command = "type nul >> \"" + _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + type + '\"';
-      std::system(command.c_str());
+      file = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + type;
+      std::ofstream os;
+      os.open(file);
+      os.close();
       --n;
     }
   }
@@ -377,6 +410,22 @@ struct Dir
       add_n_files(type, n, item_name.empty() ? "File" : item_name);
   }
 
+  static void remove_items(const std::string &format)
+  {
+    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+
+    for (const std::string &item : targets)
+      system(("DEL /Q \"" + _Path + item + '\"').c_str());
+  }
+
+  static void remove_items_rec(const std::string &format)
+  {
+    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+
+    for (const std::string &item : targets)
+      system(("DEL /S /Q \"" + _Path + item + '\"').c_str());
+  }
+
   static void trim_names()
   {
     DIR *dir = nullptr;
@@ -388,9 +437,9 @@ struct Dir
     while (info = readdir(dir))
     {
       file = File::GetFullInfo(info->d_name);
-
-      rename((_Path + info->d_name).c_str(),
-             (_Path + MG::utility::str_util::trim(file._Name) + '.' + file._Type).c_str());
+      system(("REN \"" + _Path + info->d_name + std::string("\" \"") + MG::utility::str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + MG::utility::str_util::trim(file._Name) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -403,6 +452,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -411,8 +462,9 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        rename((_Path + info->d_name).c_str(),
-               (_Path + insert + file._Name + '.' + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + insert + file._Name + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + insert + file._Name + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -425,6 +477,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -433,8 +487,9 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        rename((_Path + info->d_name).c_str(),
-               (_Path + file._Name + insert + '.' + file._Type).c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + insert + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name + insert + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -448,6 +503,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -457,8 +514,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos && found)
-          rename((_Path + info->d_name).c_str(),
-                 (_Path + file._Name.insert(found, insert) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.insert(found, insert) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.insert(found, insert) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
@@ -471,6 +529,8 @@ struct Dir
 
     if (ext[0] == '/')
       _Comp = folder_comp;
+    else
+      _Comp = file_comp;
 
     dir = opendir(_Path.c_str());
 
@@ -480,9 +540,9 @@ struct Dir
 
       if (_Comp(file, ext))
         if ((found = file._Name.find(target)) != std::string::npos)
-          if (found + target.size() < file._Name.size())
-            rename((_Path + info->d_name).c_str(),
-                   (_Path + file._Name.insert(found + target.size(), insert) + '.' + file._Type).c_str());
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() ? file._Name.insert(found + target.size(), insert) : file._Name.append(insert)) + '.' + file._Type + "\"").c_str());
+      // rename((_Path + info->d_name).c_str(),
+      //  (_Path + file._Name.insert(found + target.size(), insert) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }

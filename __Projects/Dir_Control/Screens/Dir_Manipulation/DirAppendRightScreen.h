@@ -29,6 +29,8 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
+      std::cout << "\n\n";
+
       Dir::append_right(insert, ext);
 
       std::cout << "\n\n"

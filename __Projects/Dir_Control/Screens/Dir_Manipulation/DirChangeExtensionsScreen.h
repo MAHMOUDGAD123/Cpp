@@ -8,16 +8,13 @@ class clsDirChangeExtensionsScreen : private clsScreen
 public:
   static void Display()
   {
-    _DrawScreenHeader("\tExtesions Change");
+    _DrawScreenHeader("\tExtenion Change");
     _PrintPathTag();
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
 
     std::string old_ext(READ_TXT("Enter The Targeted File extention => "));
-
-    std::cout << "\n\n"
-              << DEFAULT_FORMAT << "-> Hint: To Target Folders Enter { / }";
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
@@ -29,6 +26,8 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
+      std::cout << "\n\n";
+
       Dir::change_extensions(old_ext, new_ext);
 
       std::cout << "\n\n"

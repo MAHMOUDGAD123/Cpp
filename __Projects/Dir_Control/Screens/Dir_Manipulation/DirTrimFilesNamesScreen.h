@@ -16,6 +16,8 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
+      std::cout << "\n\n";
+      
       Dir::trim_names();
 
       std::cout << "\n\n"

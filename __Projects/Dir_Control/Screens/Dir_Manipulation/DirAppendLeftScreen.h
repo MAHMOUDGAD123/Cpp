@@ -26,10 +26,12 @@ public:
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT;
-              
+
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
-        Dir::append_left(insert, ext);
+      std::cout << "\n\n";
+      
+      Dir::append_left(insert, ext);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully";

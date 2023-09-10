@@ -29,7 +29,9 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
-      Dir::rename_files_right_counter(NewName, ext);
+      std::cout << "\n\n";
+      
+      Dir::rename_items_right_counter(NewName, ext);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully";

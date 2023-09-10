@@ -125,7 +125,7 @@ public:
     size_t found(0);
 
     if ((found = data.rfind('.')) == std::string::npos)
-      return {};
+      return "folder";
 
     return data.substr(found + 1);
   }
@@ -138,7 +138,7 @@ public:
     size_t found(0);
 
     if ((found = data.rfind('.')) == std::string::npos)
-      return {data, ""};
+      return {data, "folder"};
 
     return {data.substr(0, found), data.substr(found + 1)};
   }

@@ -34,6 +34,8 @@ public:
               
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
+      std::cout << "\n\n";
+      
       if (Hint)
         Dir::remove_substring_r(Target, ext);
       else

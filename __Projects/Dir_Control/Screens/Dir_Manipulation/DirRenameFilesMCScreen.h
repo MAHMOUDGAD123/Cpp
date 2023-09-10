@@ -34,7 +34,9 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
-      Dir::rename_files_mid_counter(lhs, rhs, ext);
+      std::cout << "\n\n";
+      
+      Dir::rename_items_mid_counter(lhs, rhs, ext);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully";

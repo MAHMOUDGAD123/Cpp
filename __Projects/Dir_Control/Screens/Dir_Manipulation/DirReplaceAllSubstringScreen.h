@@ -35,6 +35,8 @@ public:
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
+      std::cout << "\n\n";
+      
       Dir::replace_all_substring(Target, New, ext);
 
       std::cout << "\n\n"
