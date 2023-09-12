@@ -13,11 +13,9 @@ public:
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT
-              << "Enter The Items In The Following Format:"
-              << "\n\n"
+              << "Enter The Items In The Following Format:\n\n"
               << DEFAULT_FORMAT
-              << "=>  file.txt///file.mp4///file.mp3///... "
-              << "\n\n"
+              << "=>  *.*///file.mp4///*.mp3///...\n\n"
               << DEFAULT_FORMAT;
 
     std::string Format(READ_TXT("Here => "));

@@ -19,6 +19,7 @@
 #include "Dir_Manipulation/DirInsertSubstringAfter.h"
 #include "Dir_Manipulation/DirAddItems.h"
 #include "Dir_Manipulation/DirEraseItems.h"
+#include "Dir_Manipulation/DirSmartEraseItemsIf.h"
 #include "Dir_Manipulation/DirSmartEraseFiles.h"
 #include "Dir_Manipulation/DirSmartEraseFilesRec.h"
 
@@ -47,14 +48,15 @@ private:
     eChange_Extension = 15,
     eAdd_Items = 16,
     eErase_Items = 17,
-    eSm_Erase_Files = 18,
-    eSm_Erase_Files_Rec = 19,
+    eSm_Erase_Items_If = 18,
+    eSm_Erase_Files = 19,
+    eSm_Erase_Files_Rec = 20,
     eBack_To_Main_Menu = 0
   };
 
   static en_ManipulationMenuOptions _ChooseFromManipulationMenu()
   {
-    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 19, "Choose What To Perform From Manipulation Menu");
+    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 20, "Choose What To Perform From Manipulation Menu");
   }
 
   static void _GoBackToManipulationMenu()
@@ -151,6 +153,11 @@ private:
   static void _ShowDirEraseItemsScreen()
   {
     clsDirEraseItemsScreen::Display();
+  }
+
+  static void _ShowDirSmartEraseItemsIfScreen()
+  {
+    clsDirSmartEraseItemsIfScreen::Display();
   }
 
   static void _ShowDirSmartEraseFilesScreen()
@@ -254,6 +261,11 @@ private:
       BACK_TO_MANIPULATION_MENU;
       return;
 
+    case en_ManipulationMenuOptions::eSm_Erase_Items_If:
+      _ShowDirSmartEraseItemsIfScreen();
+      BACK_TO_MANIPULATION_MENU;
+      return;
+
     case en_ManipulationMenuOptions::eSm_Erase_Files:
       _ShowDirSmartEraseFilesScreen();
       BACK_TO_MANIPULATION_MENU;
@@ -291,10 +303,11 @@ public:
         << DEFAULT_FORMAT << "\t\t\t\b\b\b[13]  Insert Substring Before.\n"
         << DEFAULT_FORMAT << "\t\t\t\b\b\b[14]  Insert Substring After.\n"
         << DEFAULT_FORMAT << "\t\t\t\b\b\b[15]  Change Files Extention.\n"
-        << DEFAULT_FORMAT << "\t\t\t\b\b\b[16]  Add Items (folder | file).\n"
-        << DEFAULT_FORMAT << "\t\t\t\b\b\b[17]  Erase Items (folder | file).\n"
-        << DEFAULT_FORMAT << "\t\t\t\b\b\b[18]  Smart Erase Files.\n"
-        << DEFAULT_FORMAT << "\t\t\t\b\b\b[19]  Smart Erase Files Rec.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[16]  Add Items.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[17]  Erase Items.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[18]  Smart Erase Items If.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[19]  Smart Erase Files.\n"
+        << DEFAULT_FORMAT << "\t\t\t\b\b\b[20]  Smart Erase Files Rec.\n"
         << DEFAULT_FORMAT << "\t\t\t\b\b\b[0]   Back To Main Menu.\n"
         << DEFAULT_FORMAT << "===================================================================="
         << std::endl;

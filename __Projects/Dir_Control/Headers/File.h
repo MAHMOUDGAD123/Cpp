@@ -142,7 +142,7 @@ public:
 
     return {data.substr(0, found), data.substr(found + 1)};
   }
-  
+
   // friends list
   friend class clsScreen;
   friend class clsListAllFilesScreen;

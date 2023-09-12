@@ -3,21 +3,21 @@
 #include "../Screen.h"
 #include "../../Headers/Dir.h"
 
-class clsDirSmartEraseFilesRecScreen : private clsScreen
+class clsDirSmartEraseItemsIfScreen : private clsScreen
 {
 public:
   static void Display()
   {
-    _DrawScreenHeader("\bSmart Erase Files Rec");
+    _DrawScreenHeader("Smart Erase Items If");
     _PrintPathTag();
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT
-              << "!! Files Will Be Erased From The Whole Tree !!\n\n"
+              << "!! This Will Erase All Files That Contains A Specific Sequence !!\n\n"
               << DEFAULT_FORMAT
               << "Enter The Items In The Following Format:\n\n"
               << DEFAULT_FORMAT
-              << "=>  *.*///file.mp4///*.mp3///...\n\n"
+              << "=>  *.*///word///*.mp3///... \n\n"
               << DEFAULT_FORMAT;
 
     std::string Format(READ_TXT("Here => "));
@@ -33,7 +33,7 @@ public:
     {
       std::cout << "\n\n";
 
-      Dir::smart_files_erase_rec(Format);
+      Dir::smart_erase_items_if(Format);
 
       std::cout << "\n\n"
                 << DEFAULT_FORMAT << "Done Successfully" << std::endl;

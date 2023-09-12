@@ -1,9 +1,10 @@
 #pragma once
 
 #include <dirent.h>
-#include <windows.h>
 #include "File.h"
 #include "MG_Util.h"
+
+namespace str_util = MG::utility::str_util;
 
 struct Dir
 {
@@ -125,7 +126,7 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type + "\"").c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(target), "") + '.' + file._Type + "\"").c_str());
       // rename((_Path + info->d_name).c_str(),
       //  (_Path + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type).c_str());
     }
@@ -257,7 +258,7 @@ struct Dir
       file = File::GetFullInfo(info->d_name);
 
       if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type + "\"").c_str());
+        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(Target), New) + '.' + file._Type + "\"").c_str());
       // rename((_Path + info->d_name).c_str(),
       //  (_Path + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type).c_str());
     }
@@ -285,9 +286,9 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type + "\"").c_str());
-        // rename((_Path + info->d_name).c_str(),
-        //  (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
+        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type + "\"").c_str());
+        rename((_Path + info->d_name).c_str(),
+               (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
       }
     }
     closedir(dir);
@@ -314,9 +315,9 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + file._Type + "\"").c_str());
-        // rename((_Path + info->d_name).c_str(),
-        //  (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
+        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + file._Type + "\"").c_str());
+        rename((_Path + info->d_name).c_str(),
+               (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
       }
     }
     closedir(dir);
@@ -343,9 +344,9 @@ struct Dir
       if (_Comp(file, ext))
       {
         ++n;
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + '.' + file._Type + "\"").c_str());
-        // rename((_Path + info->d_name).c_str(),
-        //  (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
+        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + '.' + file._Type + "\"").c_str());
+        rename((_Path + info->d_name).c_str(),
+               (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
       }
     }
     closedir(dir);
@@ -412,15 +413,30 @@ struct Dir
 
   static void erase_items(const std::string &format)
   {
-    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+    std::vector<std::string> targets(str_util::split_str(format, "///"));
 
     for (const std::string &item : targets)
       std::filesystem::remove_all(_Path + item);
   }
 
+  static void smart_erase_items_if(const std::string &format)
+  {
+    DIR *dir = nullptr;
+    struct dirent *info = nullptr;
+
+    dir = opendir(_Path.c_str());
+
+    std::vector<std::string> targets(str_util::split_str(format, "///"));
+
+    while (info = readdir(dir))
+      for (const std::string &item : targets)
+        if (std::regex_search(info->d_name, std::regex(item)))
+          std::filesystem::remove_all(_Path + info->d_name);
+  }
+
   static void smart_files_erase(const std::string &format)
   {
-    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+    std::vector<std::string> targets(str_util::split_str(format, "///"));
 
     for (const std::string &item : targets)
       system(("DEL /Q \"" + _Path + item + '\"').c_str());
@@ -428,7 +444,7 @@ struct Dir
 
   static void smart_files_erase_rec(const std::string &format)
   {
-    std::vector<std::string> targets(MG::utility::str_util::split_str(format, "///"));
+    std::vector<std::string> targets(str_util::split_str(format, "///"));
 
     for (const std::string &item : targets)
       system(("DEL /S /Q \"" + _Path + item + '\"').c_str());
@@ -445,7 +461,7 @@ struct Dir
     while (info = readdir(dir))
     {
       file = File::GetFullInfo(info->d_name);
-      system(("REN \"" + _Path + info->d_name + std::string("\" \"") + MG::utility::str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
+      system(("REN \"" + _Path + info->d_name + std::string("\" \"") + str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
       // rename((_Path + info->d_name).c_str(),
       //  (_Path + MG::utility::str_util::trim(file._Name) + '.' + file._Type).c_str());
     }

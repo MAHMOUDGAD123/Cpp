@@ -1,6 +1,16 @@
 #pragma once
 
-#include <bits/stdc++.h>
+#include <string>
+#include <vector>
+#include <array>
+#include <regex>
+#include <windows.h>
+#include <limits>
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <iomanip>
+#include <cmath>
 
 namespace MG
 {
