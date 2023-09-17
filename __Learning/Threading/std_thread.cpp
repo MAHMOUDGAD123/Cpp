@@ -33,7 +33,7 @@ struct fun_obj
 {
   void operator()(const int tn) const
   {
-    printf("\n(fun_obj)thread no. %d\n", tn);
+    printf("\n(fun_obj) thread no. %d\n", tn);
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
 };

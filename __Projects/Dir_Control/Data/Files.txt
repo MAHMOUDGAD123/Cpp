@@ -1,4 +1,4 @@
+How to make C++ run FASTER with std_async<||>mp4
+how to make your strings faster in C++<||>mp4
 Maps in C++ (std_map and std_unordered_map)<||>mp4
-y2mate.is - How to make C run FASTER with std async -5HWCsmE9DrE-1080pp-1694918767<||>mp4
-y2mate.is - how_to_make_your_strings_faster_in_c___-ZO68JEgoPeg-1080pp-1694919116<||>mp4
-y2mate.is - Small String Optimization in C -S7oVXMzTo4w-1080pp-1694918979<||>mp4
+Small String Optimization in C++<||>mp4
