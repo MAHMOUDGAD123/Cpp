@@ -452,6 +452,7 @@ struct Dir
 
   static void trim_names()
   {
+    using namespace MG::utility::str_util;
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
     File file;
@@ -461,9 +462,9 @@ struct Dir
     while (info = readdir(dir))
     {
       file = File::GetFullInfo(info->d_name);
-      system(("REN \"" + _Path + info->d_name + std::string("\" \"") + str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + MG::utility::str_util::trim(file._Name) + '.' + file._Type).c_str());
+      // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
+      rename((_Path + info->d_name).c_str(),
+             (_Path + trim(file._Name) + '.' + file._Type).c_str());
     }
     closedir(dir);
   }
