@@ -7,18 +7,17 @@
 #define CLEAR_SCREEN system("cls");
 #define PAUSE system("pause>0")
 #define DEFAULT_FORMAT std::setw(_width) << std::left << ""
-#define READ_TXT MG::utility::input_valid::ReadTxt
-#define CONFIRM MG::utility::input_valid::Read_YesOrNo
+#define READ_TXT User_Input::_ReadTxtFromUser
+#define CONFIRM User_Input::_Read_YesOrNo
 
-class clsScreen
+constexpr const static uint8_t _width = 60;
+
+namespace User_Input
 {
-protected:
-	constexpr const static uint8_t _width = 60;
 
 	static int _Read_pNum()
 	{
-		constexpr const std::array<const char *, 9> err_msg
-		{
+		constexpr const std::array<const char *, 9> err_msg{
 				"Please, Enter A Positive Number => ",
 				"(((Positive))) Number => ",
 				"Come On Man I Said (Positive) => ",
@@ -27,15 +26,16 @@ protected:
 				"**** You Man Enter The A ****in Positive Number => ",
 				"You Know What Go And **** Yourself => ",
 				"I Don't Care Any More => ",
-				"/\\/\\/\\/\\/\\/\\/\\/\\/\\| => "
-		};
+				"/\\/\\/\\/\\/\\/\\/\\/\\/\\| => "};
 
 		int num(0), i(0);
+
 		while (!(std::cin >> num) || !(num > 0))
 		{
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << '\n' << DEFAULT_FORMAT << err_msg[i];
+			std::cout << '\n'
+								<< DEFAULT_FORMAT << err_msg[i];
 
 			if (i < err_msg.size() - 1)
 				++i;
@@ -58,6 +58,32 @@ protected:
 		return num;
 	}
 
+	static std::string _ReadTxtFromUser(const char *const msg = "")
+	{
+		std::string txt;
+		std::cout << DEFAULT_FORMAT << msg;
+		std::getline(std::cin >> std::ws, txt);
+		return txt;
+	}
+
+	static bool _Read_YesOrNo(const char *const msg = "")
+	{
+		std::string S;
+		do
+		{
+			std::cout << DEFAULT_FORMAT << msg;
+			std::cin >> S;
+
+		} while (!(S == "Y" || S == "y" || S == "N" || S == "n"));
+
+		return (S == "Y" || S == "y");
+	}
+
+}
+
+class clsScreen
+{
+protected:
 	static void _PrintPathTag()
 	{
 		std::cout

@@ -55,7 +55,7 @@ struct Dir
     closedir(dir);
   }
 
-  static void remove_substring(const std::string &target, const std::string &ext)
+  static bool remove_substring(const std::string &target, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -69,19 +69,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
-  static void remove_substring_r(const std::string &target, const std::string &ext)
+  static bool remove_substring_r(const std::string &target, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -95,20 +103,28 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.rfind(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.erase(found, target.size()) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.rfind(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.erase(found, target.size()) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void remove_all_substring(const std::string &target, const std::string &ext)
+  static bool remove_all_substring(const std::string &target, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -121,46 +137,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(target), "") + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + std::regex_replace(file._Name, std::regex(target.c_str()), "") + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(target), "") + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void remove_n_before(const std::string &target, size_t n, const std::string &ext)
-  {
-    DIR *dir = nullptr;
-    struct dirent *info = nullptr;
-    File file;
-    size_t found(0);
-
-    if (ext[0] == '/')
-      _Comp = folder_comp;
-    else
-      _Comp = file_comp;
-
-    dir = opendir(_Path.c_str());
-
-    while (info = readdir(dir))
-    {
-      file = File::GetFullInfo(info->d_name);
-
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type).c_str());
-    }
-    closedir(dir);
-  }
-
-  static void remove_n_after(const std::string &target, size_t n, const std::string &ext)
+  static bool remove_n_before(const std::string &target, size_t n, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -174,20 +171,28 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found > n ? file._Name.erase(found - n, n) : file._Name.substr(found)) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void replace_substring(const std::string &target, const std::string &New, const std::string &ext)
+  static bool remove_n_after(const std::string &target, size_t n, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -201,19 +206,28 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() - 1 ? file._Name.erase(found + target.size(), n) : file._Name) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
-  static void replace_substring_r(const std::string &target, const std::string &New, const std::string &ext)
+
+  static bool replace_substring(const std::string &target, const std::string &New, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -227,20 +241,62 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.rfind(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.replace(found, target.size(), New) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
+  }
+  static bool replace_substring_r(const std::string &target, const std::string &New, const std::string &ext)
+  {
+    DIR *dir = nullptr;
+    struct dirent *info = nullptr;
+    File file;
+    size_t found(0);
+
+    if (ext[0] == '/')
+      _Comp = folder_comp;
+    else
+      _Comp = file_comp;
+
+    dir = opendir(_Path.c_str());
+
+    try
+    {
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
+
+        if (_Comp(file, ext))
+          if ((found = file._Name.rfind(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.replace(found, target.size(), New) + '.' + file._Type + "\"").c_str());
+      }
+    }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
+    closedir(dir);
+    return true;
   }
 
-  static void replace_all_substring(const std::string &Target, const std::string &New, const std::string &ext)
+  static bool replace_all_substring(const std::string &Target, const std::string &New, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -253,19 +309,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(Target), New) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + std::regex_replace(file._Name, std::regex(Target.c_str()), New) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + std::regex_replace(file._Name, std::regex(Target), New) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void rename_items_left_counter(const std::string &new_name, const std::string &ext)
+  static bool rename_items_left_counter(const std::string &new_name, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -279,22 +343,31 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
-
-      if (_Comp(file, ext))
+      while (info = readdir(dir))
       {
-        ++n;
-        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type + "\"").c_str());
-        rename((_Path + info->d_name).c_str(),
-               (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
+        file = File::GetFullInfo(info->d_name);
+
+        if (_Comp(file, ext))
+        {
+          ++n;
+          rename((_Path + info->d_name).c_str(),
+                 (_Path + '#' + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + new_name + '.' + file._Type).c_str());
+        }
       }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void rename_items_right_counter(const std::string &new_name, const std::string &ext)
+  static bool rename_items_right_counter(const std::string &new_name, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -308,22 +381,31 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
-
-      if (_Comp(file, ext))
+      while (info = readdir(dir))
       {
-        ++n;
-        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + file._Type + "\"").c_str());
-        rename((_Path + info->d_name).c_str(),
-               (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
+        file = File::GetFullInfo(info->d_name);
+
+        if (_Comp(file, ext))
+        {
+          ++n;
+          rename((_Path + info->d_name).c_str(),
+                 (_Path + new_name + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + "." + file._Type).c_str());
+        }
       }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void rename_items_mid_counter(const std::string &lhs, const std::string &rhs, const std::string &ext)
+  static bool rename_items_mid_counter(const std::string &lhs, const std::string &rhs, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -337,22 +419,31 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
-
-      if (_Comp(file, ext))
+      while (info = readdir(dir))
       {
-        ++n;
-        // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + '.' + file._Type + "\"").c_str());
-        rename((_Path + info->d_name).c_str(),
-               (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
+        file = File::GetFullInfo(info->d_name);
+
+        if (_Comp(file, ext))
+        {
+          ++n;
+          rename((_Path + info->d_name).c_str(),
+                 (_Path + lhs + " -- #" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + " -- " + rhs + "." + file._Type).c_str());
+        }
       }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void change_extensions(const std::string &old_ext, const std::string &new_ext)
+  static bool change_extensions(const std::string &old_ext, const std::string &new_ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -360,66 +451,98 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (file._Type == old_ext)
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + '.' + new_ext + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name + '.' + new_ext).c_str());
+        if (file._Type == old_ext)
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + '.' + new_ext + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void add_n_folders(int n, const std::string &f_name)
+  static bool add_n_folders(int n, const std::string &f_name)
   {
     int digits_count((int)log10f(n));
     std::string folder;
 
-    while (n)
+    try
     {
-      folder = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n);
-      std::filesystem::create_directory(folder);
-      --n;
+      while (n)
+      {
+        folder = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n);
+        std::filesystem::create_directory(folder);
+        --n;
+      }
     }
+    catch (...)
+    {
+      return false;
+    }
+
+    return true;
   }
 
-  static void add_n_files(const std::string &Extension, int n, const std::string &f_name)
+  static bool add_n_files(const std::string &Extension, int n, const std::string &f_name)
   {
     int digits_count((int)log10f(n));
     std::string file;
 
-    while (n)
+    try
     {
-      file = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + Extension;
-      std::ofstream os;
-      os.open(file);
-      os.close();
-      --n;
+      while (n)
+      {
+        file = _Path + f_name + "___#" + std::string(digits_count - (int)log10f(n), '0') + std::to_string(n) + '.' + Extension;
+        std::ofstream os;
+        os.open(file);
+        os.close();
+        --n;
+      }
     }
+    catch (...)
+    {
+      return false;
+    }
+
+    return true;
   }
 
-  static void add_n_items(const std::string &Extension, int n, const std::string &item_name)
+  static bool add_n_items(const std::string &Extension, int n, const std::string &item_name)
   {
-    if (!n)
-      return;
-
     if (Extension[0] == '/')
-      add_n_folders(n, item_name.empty() ? "Folder" : item_name);
-    else
-      add_n_files(Extension, n, item_name.empty() ? "File" : item_name);
+      return add_n_folders(n, item_name.empty() ? "Folder" : item_name);
+
+    return add_n_files(Extension, n, item_name.empty() ? "File" : item_name);
   }
 
-  static void erase_items(const std::string &format)
+  static bool erase_items(const std::string &format)
   {
     std::vector<std::string> targets(str_util::split_str(format, "///"));
 
-    for (const std::string &item : targets)
-      std::filesystem::remove_all(_Path + item);
+    try
+    {
+      for (const std::string &item : targets)
+        std::filesystem::remove_all(_Path + item);
+    }
+    catch (...)
+    {
+      return false;
+    }
+
+    return true;
   }
 
-  static void smart_erase_items_if(const std::string &format)
+  static bool smart_erase_items_if(const std::string &format)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -428,29 +551,58 @@ struct Dir
 
     std::vector<std::string> targets(str_util::split_str(format, "///"));
 
-    while (info = readdir(dir))
+    try
+    {
+      while (info = readdir(dir))
+        for (const std::string &item : targets)
+          if (std::regex_search(info->d_name, std::regex(item)))
+            std::filesystem::remove_all(_Path + info->d_name);
+    }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
+    closedir(dir);
+    return true;
+  }
+
+  static bool smart_files_erase(const std::string &format)
+  {
+    std::vector<std::string> targets(str_util::split_str(format, "///"));
+
+    try
+    {
       for (const std::string &item : targets)
-        if (std::regex_search(info->d_name, std::regex(item)))
-          std::filesystem::remove_all(_Path + info->d_name);
+        system(("DEL /Q \"" + _Path + item + '\"').c_str());
+    }
+    catch (...)
+    {
+      return false;
+    }
+
+    return true;
   }
 
-  static void smart_files_erase(const std::string &format)
+  static bool smart_files_erase_rec(const std::string &format)
   {
     std::vector<std::string> targets(str_util::split_str(format, "///"));
 
-    for (const std::string &item : targets)
-      system(("DEL /Q \"" + _Path + item + '\"').c_str());
+    try
+    {
+      for (const std::string &item : targets)
+        system(("DEL /S /Q \"" + _Path + item + '\"').c_str());
+    }
+    catch (...)
+    {
+      return false;
+    }
+
+    return true;
   }
 
-  static void smart_files_erase_rec(const std::string &format)
-  {
-    std::vector<std::string> targets(str_util::split_str(format, "///"));
-
-    for (const std::string &item : targets)
-      system(("DEL /S /Q \"" + _Path + item + '\"').c_str());
-  }
-
-  static void trim_names()
+  static bool trim_names()
   {
     using namespace MG::utility::str_util;
     DIR *dir = nullptr;
@@ -459,17 +611,26 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
-      // system(("REN \"" + _Path + info->d_name + std::string("\" \"") + str_util::trim(file._Name) + '.' + file._Type + "\"").c_str());
-      rename((_Path + info->d_name).c_str(),
-             (_Path + trim(file._Name) + '.' + file._Type).c_str());
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
+        rename((_Path + info->d_name).c_str(),
+               (_Path + trim(file._Name) + '.' + file._Type).c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void append_left(const std::string &insert, const std::string &ext)
+  static bool append_left(const std::string &insert, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -482,19 +643,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + insert + file._Name + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + insert + file._Name + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + insert + file._Name + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void append_right(const std::string &insert, const std::string &ext)
+  static bool append_right(const std::string &insert, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -507,19 +676,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + insert + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name + insert + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name + insert + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 
-  static void insert_before(const std::string &target, const std::string &insert, const std::string &ext)
+  static bool insert_before(const std::string &target, const std::string &insert, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -533,19 +710,27 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos && found)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.insert(found, insert) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.insert(found, insert) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos && found)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + file._Name.insert(found, insert) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
-  static void insert_after(const std::string &target, const std::string &insert, const std::string &ext)
+  static bool insert_after(const std::string &target, const std::string &insert, const std::string &ext)
   {
     DIR *dir = nullptr;
     struct dirent *info = nullptr;
@@ -559,17 +744,25 @@ struct Dir
 
     dir = opendir(_Path.c_str());
 
-    while (info = readdir(dir))
+    try
     {
-      file = File::GetFullInfo(info->d_name);
+      while (info = readdir(dir))
+      {
+        file = File::GetFullInfo(info->d_name);
 
-      if (_Comp(file, ext))
-        if ((found = file._Name.find(target)) != std::string::npos)
-          system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() ? file._Name.insert(found + target.size(), insert) : file._Name.append(insert)) + '.' + file._Type + "\"").c_str());
-      // rename((_Path + info->d_name).c_str(),
-      //  (_Path + file._Name.insert(found + target.size(), insert) + '.' + file._Type).c_str());
+        if (_Comp(file, ext))
+          if ((found = file._Name.find(target)) != std::string::npos)
+            system(("REN \"" + _Path + info->d_name + std::string("\" \"") + (found + target.size() < file._Name.size() ? file._Name.insert(found + target.size(), insert) : file._Name.append(insert)) + '.' + file._Type + "\"").c_str());
+      }
     }
+    catch (...)
+    {
+      closedir(dir);
+      return false;
+    }
+
     closedir(dir);
+    return true;
   }
 };
 

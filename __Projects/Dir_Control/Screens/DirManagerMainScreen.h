@@ -23,7 +23,10 @@ private:
 
   static en_MainMenuOptions _ChooseFromMainMenu()
   {
-    return (en_MainMenuOptions)_ReadUserChoice(0, 4, "Choose What To Perform From Main Menu");
+    return (en_MainMenuOptions)User_Input::_ReadUserChoice(
+        0,
+        4,
+        "Choose What To Perform From Main Menu");
   }
 
   static void _GoBackToMainMenu()
@@ -100,15 +103,11 @@ public:
     _DrawScreenHeader("\tDir Manager");
 
     std::cout << DEFAULT_FORMAT << "ex: D:\\folder1\\folder2\\...\n\n";
-    std::cout << DEFAULT_FORMAT << "Enter The Path Here ==> ";
-    Dir::_Path = READ_TXT("");
+    Dir::_Path = READ_TXT("Enter The Path Here ==> ");
 
     while (Dir::_Path[1] != ':')
-    {
-      std::cout << DEFAULT_FORMAT << "Enter A Valid Path ==> ";
-      Dir::_Path = READ_TXT("");
-    }
-    
+      Dir::_Path = READ_TXT("Enter A Valid Path ==> ");
+
     Dir::_Path += '\\';
 
     Dir::read_dir();

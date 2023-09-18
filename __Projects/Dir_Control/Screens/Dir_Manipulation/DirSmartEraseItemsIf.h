@@ -13,12 +13,11 @@ public:
 
     std::cout << "\n\n"
               << DEFAULT_FORMAT
-              << "!! This Will Erase All Files That Contains A Specific Sequence !!\n\n"
+              << "!! This Will Erase All Items That Contains A Specific Sequences !!\n\n"
               << DEFAULT_FORMAT
               << "Enter The Items In The Following Format:\n\n"
               << DEFAULT_FORMAT
-              << "=>  seq1///seq2///seq3///... \n\n"
-              << DEFAULT_FORMAT;
+              << "=>  seq1///seq2///seq3///... \n\n";
 
     std::string Format(READ_TXT("Here => "));
 
@@ -26,18 +25,18 @@ public:
               << DEFAULT_FORMAT
               << "---------------------------------------";
 
-    std::cout << "\n\n"
-              << DEFAULT_FORMAT;
+    std::cout << "\n\n";
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       std::cout << "\n\n";
 
-      Dir::smart_erase_items_if(Format);
-
-      std::cout << "\n\n"
-                << DEFAULT_FORMAT << "Done Successfully" << std::endl;
-      ;
+      if (Dir::smart_erase_items_if(Format))
+        std::cout << "\n\n"
+                  << DEFAULT_FORMAT << "Done Successfully";
+      else
+        std::cout << "\n\n"
+                  << DEFAULT_FORMAT << "There is an error, Be careful You may lose data";
     }
   }
 };

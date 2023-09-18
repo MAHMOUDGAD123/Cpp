@@ -56,7 +56,10 @@ private:
 
   static en_ManipulationMenuOptions _ChooseFromManipulationMenu()
   {
-    return (en_ManipulationMenuOptions)_ReadUserChoice(0, 20, "Choose What To Perform From Manipulation Menu");
+    return (en_ManipulationMenuOptions)User_Input::_ReadUserChoice(
+        0,
+        20,
+        "Choose What To Perform From Manipulation Menu");
   }
 
   static void _GoBackToManipulationMenu()

@@ -15,8 +15,7 @@ public:
               << DEFAULT_FORMAT
               << "Enter The Items In The Following Format:\n\n"
               << DEFAULT_FORMAT
-              << "=>  file.txt///folder///file.mp3///...\n\n"
-              << DEFAULT_FORMAT;
+              << "=>  file.txt///folder///file.mp3///...\n\n";
 
     std::string Format(READ_TXT("Here => "));
 
@@ -24,17 +23,18 @@ public:
               << DEFAULT_FORMAT
               << "---------------------------------------";
 
-    std::cout << "\n\n"
-              << DEFAULT_FORMAT;
+    std::cout << "\n\n";
 
     if (CONFIRM("Are You Sure That You Want To Perform This Process? y/n? "))
     {
       std::cout << "\n\n";
 
-      Dir::erase_items(Format);
-
-      std::cout << "\n\n"
-                << DEFAULT_FORMAT << "Done Successfully" << std::endl;
+      if (Dir::erase_items(Format))
+        std::cout << "\n\n"
+                  << DEFAULT_FORMAT << "Done Successfully";
+      else
+        std::cout << "\n\n"
+                  << DEFAULT_FORMAT << "There is an error, Be careful You may lose data";
       ;
     }
   }
