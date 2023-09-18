@@ -17,7 +17,7 @@ public:
               << DEFAULT_FORMAT
               << "Enter The Items In The Following Format:\n\n"
               << DEFAULT_FORMAT
-              << "=>  *.*///word///*.mp3///... \n\n"
+              << "=>  seq1///seq2///seq3///... \n\n"
               << DEFAULT_FORMAT;
 
     std::string Format(READ_TXT("Here => "));
