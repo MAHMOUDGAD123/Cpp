@@ -36,33 +36,30 @@ struct timer
 constexpr const size_t __n(1000000000ull);
 constexpr const size_t __x(9874652318676572134ull);
 
-constexpr const uint32_t __shift(12ul);
-constexpr const uint32_t __div(1 << __shift);
-
-void div()
+void test1()
 {
   timer t("Div");
-  size_t _res(1);
+  double _res(1);
 
   for (size_t i(0); i < __n; ++i)
-    _res = __x / __div;
+    _res = __x / 1000;
 }
 
-void shift()
+void test2()
 {
-  timer t("Shift");
-  size_t _res(1);
+  timer t("mul");
+  double _res(1);
 
   for (size_t i(0); i < __n; ++i)
-    _res = __x >> __shift;
+    _res = __x * 0.001;
 }
 
 //=============================================================================
 
 int main(void)
 {
-  div();
-  shift();
+  test1();
+  test2();
 
   return 0;
 }
