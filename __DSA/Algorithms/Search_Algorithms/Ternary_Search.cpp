@@ -1,13 +1,10 @@
 #include <iostream>
 
-//================================================= Searching alogorithms =================================================
+//==================================== Searching alogorithms ====================================
 
 template <typename T, size_t n>
-size_t ternart_search(const T (&arr)[n], const T &_elem, size_t l = 0, size_t r = n - 1)
+size_t ternary_search(const T (&arr)[n], const T &_elem, size_t l = 0, size_t r = n - 1)
 {
-  if (!n || _elem < arr[l] || _elem > arr[r])
-    return UINT64_MAX;
-
   size_t mid_l(0), mid_r(0);
 
   while (l <= r)
@@ -31,7 +28,7 @@ size_t ternart_search(const T (&arr)[n], const T &_elem, size_t l = 0, size_t r 
 }
 
 template <typename T, size_t n>
-size_t ternart_search_rec(const T (&arr)[n], const T &_elem, size_t l = 0, size_t r = n - 1)
+size_t ternary_search_rec(const T (&arr)[n], const T &_elem, size_t l = 0, size_t r = n - 1)
 {
   // size_t mid_l(((l + ((l + r) >> 1)) >> 1)), mid_r((((l + r) >> 1) + r) >> 1); // fast
   size_t mid_l = l + (r - l) / 3, mid_r = r - (r - l) / 3; // slow - better results
@@ -55,13 +52,13 @@ size_t ternart_search_rec(const T (&arr)[n], const T &_elem, size_t l = 0, size_
   return UINT64_MAX;
 }
 
-//=========================================================================================================================
+//===============================================================================================
 
 int main(int argc, char *argv[])
 {
   int arr[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
-  size_t R(ternart_search(arr, 13));
+  size_t R(ternary_search(arr, 13));
 
   if (R != UINT64_MAX)
     std::cout << "Found At Index = " << R << std::endl;

@@ -8,9 +8,6 @@
 template <typename Ty, size_t n>
 static constexpr size_t binary_search(const Ty (&arr)[n], const Ty &_elem, size_t first = 0, size_t last = n - 1)
 {
-  // if (_elem < arr[first] || _elem > arr[last])
-  //   return UINT64_MAX;
-
   // (first & mid & last ) index of arr
   size_t mid(0);
 

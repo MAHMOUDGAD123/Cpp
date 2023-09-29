@@ -59,12 +59,13 @@ void _Print(const container &_Con)
 
 int main(int argc, char *argv[])
 {
-  int arr[]{9, 7, 5, 4, 3, 2};
-  // int arr[]{1, 2, 3, 4, 5, 6, 7};
+  // int arr[]{9, 7, 5, 4, 3, 2};
+  int arr[]{1, 2, 3, 4, 5, 6, 7};
+  // int arr[]{10, 298, 8, 97, 64, 22, 15};
 
   _Print(arr);
 
-  std::cout << "-> Iterations = " << bubble_sort(arr, false) << '\n';
+  std::cout << "-> Iterations = " << bubble_sort(arr) << '\n';
 
   _Print(arr);
 

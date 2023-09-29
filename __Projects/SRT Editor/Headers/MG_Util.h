@@ -728,7 +728,7 @@ namespace MG
 				{
 					// Rand_Max = 32767
 					_Next = _Next * 123456789 + 12345;
-					return (_Next / 65536) % (Rand_Max + 1);
+					return (_Next >> 15) % (Rand_Max + 1);
 				}
 
 				// generate random double number
