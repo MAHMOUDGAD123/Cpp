@@ -11,7 +11,7 @@ constexpr bool _greater(const T &lhs, const T &rhs) { return lhs > rhs; }
 template <typename T, typename Compare, size_t n>
 static constexpr int _Partition(T (&_arr)[n], Compare _cmp, const int begin, const int end)
 {
-  const T &_pivot(_arr[end]);
+  const T &_pivot(_arr[end]); // pivot is the last elem
 
   int i(begin - 1);
 
@@ -27,8 +27,7 @@ static constexpr int _Partition(T (&_arr)[n], Compare _cmp, const int begin, con
 template <typename T, typename Compare, size_t n>
 static constexpr void _Sort(T (&_arr)[n], Compare _cmp, const int begin = 0, const int end = n - 1)
 {
-  if (begin >= end)
-    return;
+  if (begin >= end) return;
 
   const int _pivot_pos(_Partition(_arr, _cmp, begin, end));
 
