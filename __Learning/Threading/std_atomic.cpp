@@ -5,7 +5,7 @@
 #include <atomic>
 
 using namespace std::literals::chrono_literals;
-const std::chrono::milliseconds t(500);
+// const std::chrono::milliseconds t(500);
 
 static std::atomic<int> a_val(0); // to prevent data racing
 static int val(0);
@@ -18,8 +18,8 @@ void increment_val(int n)
 
 int main(void)
 {
-  int n(1000000);
-  std::vector<std::thread> threads;
+  int n(10000);
+  // std::vector<std::thread> threads;
 
   std::cout << "\nStart threading.......\n";
 

@@ -27,7 +27,7 @@ constexpr static void Print(const container& list)
 
 
 
-struct vector
+struct vector final
 {
 	float _x, _y, _z;
 
