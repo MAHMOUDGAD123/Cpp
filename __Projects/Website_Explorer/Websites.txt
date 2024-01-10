@@ -1,0 +1,1 @@
+start msedge --new-window "https://google.com"
