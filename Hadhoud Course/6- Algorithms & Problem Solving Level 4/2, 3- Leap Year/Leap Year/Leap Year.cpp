@@ -16,7 +16,7 @@ unsigned long long Read_Positive_Int_Number(const char* Message = "")
 	while (cin.fail() || !(Number >= 0))
 	{
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		cout << "-> Invalid Number, Enter A Positive Integer Number|--> ";
 		cin >> Number;
