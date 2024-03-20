@@ -19,7 +19,7 @@ function For_Each(iterator start, iterator end, function fun)
 
 int main()
 {
-  std::vector<int> vNums{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  std::array<int, 10> vNums{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
   // Method 1:
   For_Each(vNums.begin(), vNums.end(), [&](int N) -> void { std::cout << ' ' << N; });

@@ -49,8 +49,6 @@ int main() {
 	std::string_view firstN(S, 7);
 	std::string_view lastN(S + 8, 3);
 
-
-
 	sprint(S);
 	sprint(firstN);
 	sprint(lastN);

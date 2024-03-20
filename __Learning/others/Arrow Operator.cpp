@@ -13,9 +13,8 @@ struct ST
 };
 
 // trailing return type
-auto Mul(int a, int b) -> int
-{
-  return a * b; 
+auto Mul(int a, int b) -> int {
+  return a * b;
 }
 
 int main()

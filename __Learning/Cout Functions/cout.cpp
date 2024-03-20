@@ -33,7 +33,7 @@ int main()
     cout << d << endl;
 
     cout << endl
-         << setprecision(5) << d << endl;
+        << setprecision(5) << d << endl;
 
     return 0;
 }

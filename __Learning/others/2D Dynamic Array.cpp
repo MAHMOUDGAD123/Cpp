@@ -7,7 +7,7 @@ int main()
   // Method 1 (slow method)
 
   // allocation
-  int **_s2dTable = new int *[10];
+  int** _s2dTable = new int* [10];
   for (uint32_t i(0); i < 10; i++)
     _s2dTable[i] = new int[10];
 
@@ -26,13 +26,13 @@ int main()
 
   std::cout << "\n==========================================================";
   std::cout << "\n==========================================================\n\n";
-  
+
   // Method 2 (fast method) much faster than method 1
   // it's actually a 1D dynamic array work as 2D dynamic array
 
   // allocation
   // int *_f2dTable = new int[100];  // both are the same
-  int *_f2dTable = new int[10 * 10]; // both are the same
+  int* _f2dTable = new int[10 * 10]; // both are the same
 
   // accessing
   for (uint32_t i(0); i < 10; i++)
